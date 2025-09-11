@@ -51,6 +51,10 @@ $cine = [
     ["siege" => "E8", 'reserve' => false]
   ]
 ];
+
+$nbPlaceReserveAB = 0;
+$nbPlaceReserveC = 0;
+$nbPlaceReserveDE = 0;
 ?>
 
 <!DOCTYPE html>
@@ -129,68 +133,29 @@ $cine = [
   <div class="salle">
     <div class="ecran">ÉCRAN</div>
 
-    <?php foreach ($cine as $rang => $rangee) { ?>
-      <!-- Rang A -->
+    <?php foreach ($cine as $rang => $rangee) :
+    ?>
       <div class="rang">
-        <div class="place libre">A1</div>
-        <div class="place reserve">A2</div>
-        <div class="place libre">A3</div>
-        <div class="place libre">A4</div>
-        <div class="place libre">A5</div>
-        <div class="place libre">A6</div>
-        <div class="place libre">A7</div>
-        <div class="place libre">A8</div>
+        <?php foreach ($rangee as $siege) :
+          if (($rang == "A" || $rang == "B") && $siege["reserve"] == true) {
+            $nbPlaceReserveAB++;
+          }
+          if ($rang == "C"  && $siege["reserve"] == true) {
+            $nbPlaceReserveC++;
+          }
+          if (($rang == "D" || $rang == "E") && $siege["reserve"] == true) {
+            $nbPlaceReserveDE++;
+          }
+        ?>
+          <div class="place <?= $siege['reserve'] == true ? 'reserve' : 'libre' ?> "><?= $siege['siege'] ?></div>
+        <?php endforeach ?>
       </div>
+    <?php endforeach ?>
 
-    <?php   } ?>
+    <p><?= "Le nombre de siege pour a et b : $nbPlaceReserveAB " ?></p>
+    <p><?= "Le nombre de siege pour c : $nbPlaceReserveC " ?></p>
+    <p><?= "Le nombre de siege pour d et e : $nbPlaceReserveDE " ?></p>
 
-    <!-- Rang B -->
-    <div class="rang">
-      <div class="place libre">B1</div>
-      <div class="place libre">B2</div>
-      <div class="place reserve">B3</div>
-      <div class="place libre">B4</div>
-      <div class="place libre">B5</div>
-      <div class="place libre">B6</div>
-      <div class="place libre">B7</div>
-      <div class="place libre">B8</div>
-    </div>
-
-    <!-- Rang C -->
-    <div class="rang">
-      <div class="place libre">C1</div>
-      <div class="place libre">C2</div>
-      <div class="place reserve">C3</div>
-      <div class="place libre">C4</div>
-      <div class="place libre">C5</div>
-      <div class="place libre">C6</div>
-      <div class="place libre">C7</div>
-      <div class="place libre">C8</div>
-    </div>
-
-    <!-- Rang D -->
-    <div class="rang">
-      <div class="place libre">D1</div>
-      <div class="place libre">D2</div>
-      <div class="place reserve">D3</div>
-      <div class="place libre">D4</div>
-      <div class="place libre">D5</div>
-      <div class="place libre">D6</div>
-      <div class="place libre">D7</div>
-      <div class="place libre">D8</div>
-    </div>
-
-    <!-- Rang E -->
-    <div class="rang">
-      <div class="place libre">E1</div>
-      <div class="place libre">E2</div>
-      <div class="place reserve">E3</div>
-      <div class="place libre">E4</div>
-      <div class="place libre">E5</div>
-      <div class="place libre">E6</div>
-      <div class="place libre">E7</div>
-      <div class="place libre">E8</div>
-    </div>
   </div>
 </body>
 
