@@ -12,8 +12,8 @@ var acteur = {
   },
 };
 
-console.log(acteur.fullName("Ousmane", "Fall"));
-console.log(acteur.getFilms());
+//console.log(acteur.fullName("Ousmane", "Fall"));
+//console.log(acteur.getFilms());
 
 // for in et for of
 
@@ -30,10 +30,10 @@ var tab = [
   },
 ];
 
-for (const cle in acteur) {
-  console.log(cle);
+for (const cle in tab) {
+  console.log(tab[cle].nom);
 }
 
-for (const element of tab) {
-  console.log(element);
+for (let element of tab) {
+  console.log(element.prenom);
 }
