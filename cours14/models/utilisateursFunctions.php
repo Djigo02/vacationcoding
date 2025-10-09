@@ -1,11 +1,33 @@
 <?php
 require_once "models/db.php";
 
-function addUser($prenom, $nom, $email, $password)
+function addUsernonSecure($prenom, $nom, $email, $password)
 {
     global $connexion;
     $req = "INSERT INTO utilisateurs (prenom, nom, email, password) VALUES ('$prenom', '$nom','$email','$password');";
     return $connexion->exec($req);
+}
+function addUser($prenom, $nom, $email, $password)
+{
+    global $connexion;
+    $req = "INSERT INTO utilisateurs (prenom, nom, email, password) VALUES (:prenom, :nom,:email,:password);";
+    $stmt = $connexion->prepare($req);
+    $stmt->bindValue(":prenom", $prenom, PDO::PARAM_STR);
+    $stmt->bindValue(":nom", $nom, PDO::PARAM_STR);
+    $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+    $stmt->bindValue(":password", $password, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+function connexion($email, $password)
+{
+    global $connexion;
+    $req = "SELECT * FROM utilisateurs WHERE email=:email AND password=:password;";
+    $stmt = $connexion->prepare($req);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function modifyUser($id, $prenom, $nom, $email, $password)

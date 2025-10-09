@@ -4,8 +4,11 @@ require_once "models/libreFunctions.php";
 
 $prenom = "Adama";
 $nom = "Kante";
-$email = "; DROP TABLE utilisateurs ;";
-$password = "AK#@123!@";
+$email = "utilisateurs";
+$password = "AK#@123!@'); TRUNCATE utilisateurs;";
+
+// var_dump(connexion("ddd", "COCO' or 1=1;"));
+// var_dump(connexion($email, $password));
 
 //! Test de l'ajout
 
@@ -15,10 +18,10 @@ if (addUser($prenom, $nom, $email, $password)) {
     echo "Il y a eu un probleme";
 }
 
-//! Affichage des utilisateurs de la base
-foreach (getAllUsers() as $user) {
-    echo "Nom : " . $user['nom'] . ", Prenom : " . $user['prenom'] . ", Email: " . $user['email'] . " , password: " . $user['password'] . "<br>";
-}
+// //! Affichage des utilisateurs de la base
+// foreach (getAllUsers() as $user) {
+//     echo "Nom : " . $user['nom'] . ", Prenom : " . $user['prenom'] . ", Email: " . $user['email'] . " , password: " . $user['password'] . "<br>";
+// }
 
 //! Recuperer un utilisateur de la base
 //$userByID = getUserById(2);
